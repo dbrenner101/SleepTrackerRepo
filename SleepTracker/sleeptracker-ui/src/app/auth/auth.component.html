@@ -1,0 +1,21 @@
+<div [hidden]="authenticated()">
+    <form [formGroup]="authForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Username: </mat-label>
+            <input formControlName="username" [formControl]="username" required matNativeControl>
+            <mat-error *ngIf="username.invalid">Please enter a username</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Password: </mat-label>
+            <input formControlName="password" type="password" [formControl]="password" required matNativeControl>
+            <mat-error *ngIf="password.invalid">Please enter a password</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="authForm.invalid" (click)="authenticate()">Login</button>
+    </form>
+</div>
+<br/>
+<div [hidden]="authenticated()">
+    <a class="button" routerLink="/register">Register</a>
+</div>

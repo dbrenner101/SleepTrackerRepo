@@ -1,0 +1,190 @@
+<div><h3>New Sleep Event</h3></div>
+
+<div>
+    <form [formGroup]="sleepLogForm" name="sleepLogForm">
+        <table border="0">
+            <tr>
+                <th><h4>Date of the sleep event</h4></th>
+                <th><h4>Time you fell asleep</h4></th>
+            </tr>
+            <tr>
+                <td><mat-form-field appearance="fill">
+                    <mat-label floatLable="auto">Sleep date</mat-label>
+                    <input type="text" formControlName="sleepEventDate" name="sleepEventDate" required matInput [matDatepicker]="sleepDate" [formControl]="sleepEventDate" (dateChange)="startDateChange($event)">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="sleepDate"></mat-datepicker-toggle>
+                    <mat-datepicker #sleepDate></mat-datepicker>
+                    <mat-error *ngIf="f['sleepEventDate'].invalid">Please enter a valid sleep event date</mat-error>
+                </mat-form-field></td>
+                <td><mat-form-field appearance="fill">
+                    <mat-label>Hour</mat-label>
+                    <select matNativeControl formControlName="fallAsleepHour" name="fallAsleepHour">
+                        <option value="01">1</option>
+                        <option value="02">2</option>
+                        <option value="03">3</option>
+                        <option value="04">4</option>
+                        <option value="05">5</option>
+                        <option value="06">6</option>
+                        <option value="07">7</option>
+                        <option value="08">8</option>
+                        <option value="09">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                    </select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Minute</mat-label>
+                    <select matNativeControl formControlName="fallAsleepMinute" name="fallAsleepMinute">
+                        <option value="00" selected>00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>AM/PM</mat-label>
+                    <select matNativeControl formControlName="fallAsleepAMPM" name="fallAsleepMinute">
+                        <option value="AM">AM</option>
+                        <option value="PM" selected>PM</option>
+                    </select>
+                </mat-form-field></td>
+            </tr>
+        </table>
+
+        <br/>
+
+        <table border="0">
+            <tr>
+                <th><h4>When did you wake?</h4></th>
+                <th><h4>Time you woke?</h4></th>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill">
+                        <mat-label floatLable="auto">Wake date</mat-label>
+                        <input type="text" formControlName="wakeDate" name="wakeDate" required matInput [matDatepicker]="wakeDate" (dateChange)="startDateChange($event)">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="wakeDate"></mat-datepicker-toggle>
+                        <mat-datepicker #wakeDate></mat-datepicker>
+                        <mat-error *ngIf="f['wakeDate'].invalid">Please enter a valid wake date</mat-error>
+                    </mat-form-field></td>
+                    <td><mat-form-field appearance="fill">
+                        <mat-label>Hour</mat-label>
+                        <select matNativeControl formControlName="wakeHour" name="wakeHour">
+                            <option value="01">1</option>
+                            <option value="02">2</option>
+                            <option value="03">3</option>
+                            <option value="04">4</option>
+                            <option value="05">5</option>
+                            <option value="06">6</option>
+                            <option value="07">7</option>
+                            <option value="08">8</option>
+                            <option value="09">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Minute</mat-label>
+                        <select matNativeControl formControlName="wakeMinute" name="wakeMinute">
+                            <option value="00" selected>00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>AM/PM</mat-label>
+                        <select matNativeControl formControlName="wakeAMPM" name="wakeAMPM">
+                            <option value="AM" selected="true">AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </mat-form-field></td>
+            </tr>
+        </table>
+        <br/>
+        <table border="0">
+            <tr>
+                <th><h4>Where did you sleep?</h4></th>
+                <th><h4>What was your demeanor when you went to sleep?</h4></th>
+            </tr>
+            <tr>
+                <td> <mat-form-field appearance="fill">
+                    <mat-label for="locations">Location: </mat-label>
+                    <select formControlName="locations" matNativeControl>
+                        <option>Choose Location</option>
+                        <option *ngFor="let location of locations" value="{{location.locationId}}">{{location.locationName}}</option>
+                    </select>
+                </mat-form-field></td>
+                <td><mat-form-field appearance="fill">
+                    <mat-label for="attitude">Attitude: </mat-label>
+                    <select formControlName="attitudes" matNativeControl>
+                        <option>Choose Attitude</option>
+                        <option *ngFor="let att of attitudes" value="{{att.attitudeId}}">{{att.attitude}}</option>
+                    </select>
+                </mat-form-field></td>
+            </tr>
+        </table>
+        <br/>
+        <table border="0">
+            <tr>
+                <th><h4>What was your diet before falling asleep?</h4></th>
+                <th><h4>What was your general health before going to bed?</h4></th>
+            </tr>
+            <tr>
+                <td> <mat-form-field appearance="fill">
+                    <mat-label for="diet">Diet: </mat-label>
+                    <select formControlName="diets" matNativeControl>
+                        <option>Choose Diet</option>
+                        <option *ngFor="let d of diets" value="{{d.dietId}}">{{d.diet}}</option>
+                    </select>
+                </mat-form-field></td>
+                <td><mat-form-field appearance="fill">
+                    <mat-label for="health">Health: </mat-label>
+                    <select formControlName="healths" matNativeControl>
+                        <option>Choose Health</option>
+                        <option *ngFor="let h of healths" value="{{h.healthId}}">{{h.health}}</option>
+                    </select>
+                </mat-form-field></td>
+            </tr>
+        </table>
+        <br/>
+        <table border="0">
+            <tr>
+                <th><h4>What did you do before going to bed?</h4></th>
+                <th><h4>What was the condition of your sleep</h4></th>
+                <th><h4>How did you feel when you woke?</h4></th>
+            </tr>
+            <tr>
+                <td><mat-form-field appearance="fill">
+                    <mat-label for="habits">Habit: </mat-label>
+                    <mat-select formControlName="habits" multiple="true">
+                        <mat-option *ngFor="let h of habits" [value]="h.habitId">{{h.habit}}</mat-option>
+                    </mat-select>
+                </mat-form-field></td>
+                <td><mat-form-field appearance="fill">
+                    <mat-label for="sleepCondition">Sleep Condition: </mat-label>
+                    <mat-select formControlName="sleepCondition">
+                        <mat-option *ngFor="let sc of sleepConditions" [value]="sc.sleepConditionId">{{sc.sleepCondition}}</mat-option>
+                    </mat-select>
+                </mat-form-field></td>
+                <td><mat-form-field appearance="fill">
+                    <mat-label for="sleepResult">Sleep Results: </mat-label>
+                    <mat-select formControlName="sleepResults" multiple="true">
+                        <mat-option *ngFor="let sr of sleepResults" [value]="sr.sleepResultId">{{sr.sleepResult}}</mat-option>
+                    </mat-select>
+                </mat-form-field></td>
+            </tr>
+        </table>
+        <br/>
+        <span *ngIf="selectedSleepLog == null; else: elseBlock">
+            <button mat-raised-button color="primary" type="submit" [disabled]="sleepLogForm.invalid"  (click)="addSleepEvent()">Add Log</button>
+        </span>
+        <ng-template #elseBlock>
+            <button mat-raised-button color="primary" type="submit" [disabled]="sleepLogForm.invalid" (click)="updateSleepEvent()">Update Log</button>
+        </ng-template>
+
+    </form>
+  </div>

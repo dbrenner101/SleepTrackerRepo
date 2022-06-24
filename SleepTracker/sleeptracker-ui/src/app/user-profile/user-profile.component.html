@@ -1,0 +1,52 @@
+<div>
+    <h3>Users Admin</h3>
+</div>
+
+<div>
+    <form [formGroup]="userProfileForm">
+        <mat-label>
+            Update or Add User Profile
+        </mat-label>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input formControlName="targetSleepHours" required matNativeControl placeholder="Desired number of sleep hours">
+            <mat-error *ngIf="targetSleepHours.invalid">Please enter a valid number greater than or equal to 1</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input formControlName="firstName" required matNativeControl placeholder="First name">
+            <mat-error *ngIf="firstName.invalid">Please enter a first name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input formControlName="lastName" required matNativeControl placeholder="Last name">
+            <mat-error *ngIf="lastName.invalid">Please enter a last name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label for="user">Gender</mat-label>
+            <select formControlName="gender" matNativeControl>
+                <option>Choose Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input formControlName="weight" matNativeControl placeholder="Weight">
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input formControlName="birthdate" matNativeControl placeholder="Birthdate">
+        </mat-form-field>
+        <br/>
+        <div *ngIf="selectedUserProfile != null; else addBlock">
+           <button mat-raised-button color="primary" [disabled]="userProfileForm.invalid" (click)="updateUserProfile()">Update</button> ||
+            <button mat-raised-button color="primary" [disabled]="userProfileForm.invalid" (click)="deleteUserProfile()">Delete</button>
+        </div>
+        <ng-template #addBlock>
+            <button mat-raised-button color="primary" [disabled]="userProfileForm.invalid" (click)="addUserProfile()">Add</button>
+        </ng-template>
+    </form>
+</div>

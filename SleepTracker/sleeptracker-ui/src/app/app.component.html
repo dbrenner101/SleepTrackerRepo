@@ -1,0 +1,35 @@
+<div class="container" [hidden]="authenticated()">
+    <h4>Please Login</h4>
+</div>
+<div [hidden]="!authenticated()">
+    <mat-toolbar>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+            <mat-icon>
+                <button mat-button [matMenuTriggerFor]="admin">Admin</button>
+                <button mat-button [matMenuTriggerFor]="sleepLog">Sleep Log</button>
+                <button mat-button (click)="logout()">Logout</button>
+
+                <mat-menu #admin="matMenu">
+                    <a class="button" routerLink="/attitudes-admin" mat-menu-item routerLinkActive="activebutton">Attitudes</a>
+                    <a class="button" routerLink="/diets-admin" mat-menu-item routerLinkActive="activebutton">Diets</a>
+                    <a class="button" routerLink="/habits-admin" mat-menu-item routerLinkActive="activebutton">Habits</a>
+                    <a class="button" routerLink="/health-admin" mat-menu-item routerLinkActive="activebutton">Health</a>
+                    <a class="button" routerLink="/locations-admin" mat-menu-item routerLinkActive="activebutton">Locations</a>
+                    <a class="button" routerLink="/sleep-conditions-admin" mat-menu-item routerLinkActive="activebutton">Sleep Quality</a>
+                    <a class="button" routerLink="/sleep-results-admin" mat-menu-item routerLinkActive="activebutton">Sleep Results</a>
+                    <a class="button" routerLink="/users-admin" mat-menu-item routerLinkActive="activebutton">Users</a>
+                </mat-menu>
+
+                <mat-menu #sleepLog="matMenu">
+                    <a class="button" routerLink="/new-sleep-log" mat-menu-item routerLinkActive="activebutton">New Sleep Log</a>
+                    <a class="button" routerLink="/edit-sleep-log" mat-menu-item routerLinkActive="activebutton">Edit Sleep Log</a>
+                </mat-menu>
+            </mat-icon>
+        </button>
+      </mat-toolbar>
+
+    <p></p>
+</div>
+ <div class="container">
+    <router-outlet></router-outlet>
+ </div>

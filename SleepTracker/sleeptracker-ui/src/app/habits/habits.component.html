@@ -1,0 +1,35 @@
+<div>
+    <h3>Habits Admin</h3>
+</div>
+
+<div *ngIf="habits != null">
+    <form [formGroup]="habitsForm">
+        <mat-form-field appearance="fill">
+            <mat-label for="habit">Habit: </mat-label>
+            <select formControlName="habitList" matNativeControl (change)="changeHabit($event)">
+                <option>Choose Habit</option>
+                <option *ngFor="let h of habits" value="{{h.habitId}}">{{h.habit}}</option>
+            </select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Update or Add Habit</mat-label><br/>
+            <input formControlName="habit" matNativeControl placeholder="Habit name">
+            <mat-error *ngIf="habit.invalid">Please enter a valid habit name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label for="perception">Perception: </mat-label>
+            <select formControlName="perception" required matNativeControl>
+                <option>Choose Perception</option>
+                <option value="Positive">Positive</option>
+                <option value="Negative">Negative</option>
+            </select>
+            <mat-error *ngIf="perception.invalid">Please choose a perception</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="habitsForm.invalid" (click)="updateHabit()">Update</button> ||
+        <button mat-raised-button color="primary" [disabled]="habitsForm.invalid" (click)="addHabit()">Add</button> ||
+        <button mat-raised-button color="primary" [disabled]="habitsForm.invalid" (click)="deleteHabit()">Delete</button>
+    </form>
+</div>

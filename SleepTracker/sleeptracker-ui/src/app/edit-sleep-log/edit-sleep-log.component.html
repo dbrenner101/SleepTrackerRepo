@@ -1,0 +1,92 @@
+<div>
+    <table border="1">
+        <tr>
+            <th>Event Id</th>
+            <th>Event Date</th>
+            <th>Wake Time</th>
+            <th>Sleep Length</th>
+            <th>Location</th>
+            <th>Attitude</th>
+            <th>Diet</th>
+            <th>Health</th>
+            <th>Sleep Condition</th>
+            <th>Habits</th>
+            <th>Sleep Results</th>
+            <th>Delete</th>
+        </tr>
+        <tr *ngFor="let sleepLogEvent of sleepLogEvents">
+            <td><a class="button" routerLink="/modify-sleep-log/{{sleepLogEvent.sleepEventId}}">{{sleepLogEvent.sleepEventId}}</a></td>
+            <td>{{sleepLogEvent.sleepStartTime | date:'medium'}}</td>
+            <td>{{sleepLogEvent.wakeTime | date:'medium'}}</td>
+            <td>{{sleepLogEvent.sleepLength}}</td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.location != null && sleepLogEvent.location.perception == 'Positive'; else optLocation">
+                    <label style="color:green"> {{sleepLogEvent.location.locationName}}</label>
+                </ng-container>
+                <ng-template #optLocation>
+                    <span *ngIf="sleepLogEvent.location != null">
+                        <label style="color:red"> {{sleepLogEvent.location.locationName}}</label>
+                    </span>
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.attitude != null && sleepLogEvent.attitude.perception == 'Positive', else optAttitude">
+                    <span style="color:green">{{sleepLogEvent.attitude.attitude}}</span>
+                </ng-container>
+                <ng-template #optAttitude>
+                    <span *ngIf="sleepLogEvent.attitude != null" style="color:red">{{sleepLogEvent.attitude.attitude}}</span>
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.diet != null && sleepLogEvent.diet.perception == 'Positive'; else optDiet">
+                    <span style="color:green">{{sleepLogEvent.diet.diet}}</span>
+                </ng-container>
+                <ng-template #optDiet>
+                    <span *ngIf="sleepLogEvent.diet != null" style="color:red">{{sleepLogEvent.diet.diet}}</span>
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.health != null && sleepLogEvent.health.perception == 'Positive'; else optHealth">
+                    <span style="color:green">{{sleepLogEvent.health.health}}</span>
+                </ng-container>
+                <ng-template #optHealth>
+                    <span *ngIf="sleepLogEvent.health != null" style="color:red">{{sleepLogEvent.health.health}}</span>
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.sleepCondition != null && sleepLogEvent.sleepCondition.perception == 'Positive'; else optSleepCondition">
+                    <span style="color:green">{{sleepLogEvent.sleepCondition.sleepCondition}}</span>
+                </ng-container>
+                <ng-template #optSleepCondition>
+                    <span *ngIf="sleepLogEvent.sleepCondition != null" style="color:red">{{sleepLogEvent.sleepCondition.sleepCondition}}</span>
+                </ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.habits != null; else default">
+                    <div *ngFor="let habit of sleepLogEvent.habits">
+                        <ng-container *ngIf="habit.perception == 'Positive'; else negHabit">
+                            <span style="color:green;">- {{habit.habit}}</span><br/>
+                        </ng-container>
+                        <ng-template #negHabit>
+                            <span style="color:red;">- {{habit.habit}}</span><br/>
+                        </ng-template>
+                    </div>
+                </ng-container>
+                <ng-template #default>Alternate text while primary text is hidden</ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="sleepLogEvent.sleepResults != null">
+                    <div *ngFor="let sleepResult of sleepLogEvent.sleepResults">
+                        <ng-container *ngIf="sleepResult.perception == 'Positive'; else negSleepResult">
+                            <span style="color:green">- {{sleepResult.sleepResult}}</span><br/>
+                        </ng-container>
+                        <ng-template #negSleepResult>
+                            <span style="color:red">- {{sleepResult.sleepResult}}</span><br/>
+                        </ng-template>
+                    </div>
+                </ng-container>
+            </td>
+            <td><button mat-raised-button color="primary" type="submit" (click)="deleteSleepEvent(sleepLogEvent.sleepEventId)">Delete Log Event</button></td>
+        </tr>
+    </table>
+</div>

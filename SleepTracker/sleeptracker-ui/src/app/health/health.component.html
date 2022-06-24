@@ -1,0 +1,35 @@
+<div>
+    <h3>Health Admin</h3>
+</div>
+
+<div *ngIf="allHealth != null">
+    <form [formGroup]="healthForm">
+        <mat-form-field appearance="fill">
+            <mat-label for="health">Health: </mat-label>
+            <select formControlName="healthtList" matNativeControl (change)="changeHealth($event)">
+                <option>Choose Health</option>
+                <option *ngFor="let h of allHealth" value="{{h.healthId}}">{{h.health}}</option>
+            </select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Update or Add Health</mat-label><br/>
+            <input formControlName="health" matNativeControl required placeholder="Health name">
+            <mat-error *ngIf="health.invalid">Please enter a valid health name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label for="diet">Perception: </mat-label>
+            <select formControlName="perception" required matNativeControl>
+                <option>Choose Perception</option>
+                <option value="Positive">Positive</option>
+                <option value="Negative">Negative</option>
+            </select>
+            <mat-error *ngIf="perception.invalid">Please choose a perception</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="healthForm.invalid" (click)="updateHealth()">Update</button> ||
+        <button mat-raised-button color="primary" [disabled]="healthForm.invalid" (click)="addHealth()">Add</button> ||
+        <button mat-raised-button color="primary" [disabled]="healthForm.invalid" (click)="deleteHealth()">Delete</button>
+    </form>
+</div>

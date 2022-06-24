@@ -1,0 +1,35 @@
+<div>
+    <h3>Diet Admin</h3>
+</div>
+
+<div *ngIf="diets != null">
+    <form [formGroup]="dietsForm">
+        <mat-form-field appearance="fill">
+            <mat-label for="diet">Diet: </mat-label>
+            <select formControlName="dietList" matNativeControl (change)="changeDiet($event)">
+                <option>Choose Diet</option>
+                <option *ngFor="let d of diets" value="{{d.dietId}}">{{d.diet}}</option>
+            </select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Update or Add Diet</mat-label><br/>
+            <input formControlName="diet" matNativeControl required placeholder="Diet name">
+            <mat-error *ngIf="diet.invalid">Please enter a valid diet name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label for="diet">Perception: </mat-label>
+            <select formControlName="perception" required matNativeControl>
+                <option>Choose Perception</option>
+                <option value="Positive">Positive</option>
+                <option value="Negative">Negative</option>
+            </select>
+            <mat-error *ngIf="perception.invalid">Please choose a perception</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="dietsForm.invalid" (click)="updateDiet()">Update</button> ||
+        <button mat-raised-button color="primary" [disabled]="dietsForm.invalid" (click)="addDiet()">Add</button> ||
+        <button mat-raised-button color="primary" [disabled]="dietsForm.invalid" (click)="deleteDiet()">Delete</button>
+    </form>
+</div>

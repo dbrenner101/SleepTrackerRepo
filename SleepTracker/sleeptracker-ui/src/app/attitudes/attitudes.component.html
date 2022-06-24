@@ -1,0 +1,40 @@
+<p></p>
+
+<div><h3>Attitudes</h3></div>
+
+<div *ngIf="attitudes != null">
+    <form [formGroup]="attitudesForm">
+        <mat-form-field appearance="fill">
+            <mat-label for="attitude">Attitude: </mat-label>
+            <select formControlName="attitudeList" matNativeControl (change)="changeAttitude($event)">
+                <option>Choose Attitude</option>
+                <option *ngFor="let att of attitudes" value="{{att.attitudeId}}">{{att.attitude}}</option>
+            </select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Update or Add Attitude</mat-label>
+            <input formControlName="attitude" [formControl]="attitude" required matNativeControl>
+            <mat-error *ngIf="attitude.invalid">Please enter a valid attitude name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label for="perception">Perception: </mat-label>
+            <select formControlName="perception" matNativeControl required>
+                <option>Choose Perception</option>
+                <option value="Positive">Positive</option>
+                <option value="Negative">Negative</option>
+            </select>
+            <mat-error *ngIf="perception.invalid">Please choose a perception</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea cols="10" rows="5" matNativeControl name="description"></textarea>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="attitudesForm.invalid" (click)="updateAttitude()">Update</button> ||
+        <button mat-raised-button color="primary" [disabled]="attitudesForm.invalid" (click)="addAttitude()">Add</button> ||
+        <button mat-raised-button color="primary" [disabled]="attitudesForm.invalid" (click)="deleteAttitude()">Delete</button>
+    </form>
+</div>

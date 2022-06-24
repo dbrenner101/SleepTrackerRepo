@@ -1,0 +1,36 @@
+<div>
+    <h3>Users Admin</h3>
+</div>
+
+<div *ngIf="users != null">
+    <form [formGroup]="usersForm">
+        <mat-form-field appearance="fill">
+            <mat-label for="user">User: </mat-label>
+            <select formControlName="usersList" matNativeControl (change)="changeUser($event)">
+                <option value="">Choose User</option>
+                <option *ngFor="let u of users" value="{{u.accountId}}">{{u.username}}</option>
+            </select>
+        </mat-form-field>
+        <p></p>
+        <mat-label>
+            Update or Add User
+        </mat-label>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input formControlName="username" required matNativeControl placeholder="Username">
+            <mat-error *ngIf="username.invalid">Please enter a username</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <input type="password" formControlName="password" required matNativeControl placeholder="Password">
+            <mat-error *ngIf="password.invalid">Please enter a password</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="usersForm.invalid" (click)="updateUser()">Update</button> ||
+        <button mat-raised-button color="primary" [disabled]="usersForm.invalid" (click)="deleteUser()">Delete</button>
+    </form>
+    <br/>
+    <div *ngIf="selectedUser != null && selectedUser.accountId != null">
+        <a class="button" routerLink="/user-profile/{{selectedUser.accountId}}">Update Profile</a>
+    </div>
+</div>

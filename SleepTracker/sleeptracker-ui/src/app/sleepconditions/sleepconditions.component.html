@@ -1,0 +1,35 @@
+<div>
+    <h3>Sleep Conditions Admin</h3>
+</div>
+
+<div *ngIf="sleepConditions != null">
+    <form [formGroup]="sleepConditionsForm">
+        <mat-form-field appearance="fill">
+            <mat-label for="diet">Sleep quality: </mat-label>
+            <select formControlName="sleepConditionList" matNativeControl (change)="changeSleepCondition($event)">
+                <option>Choose Sleep Condition</option>
+                <option *ngFor="let sleep of sleepConditions" value="{{sleep.sleepConditionId}}">{{sleep.sleepCondition}}</option>
+            </select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label>Update or Add Sleep Quality</mat-label><br/>
+            <input formControlName="sleepCondition" matNativeControl required placeholder="Sleep condition name">
+            <mat-error *ngIf="sleepCondition.invalid">Please enter a valid sleep condition name</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field appearance="fill">
+            <mat-label for="perception">Perception: </mat-label>
+            <select formControlName="perception" required matNativeControl>
+                <option>Choose Perception</option>
+                <option value="Positive">Positive</option>
+                <option value="Negative">Negative</option>
+            </select>
+            <mat-error *ngIf="perception.invalid">Please choose a perception</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="sleepConditionsForm.invalid" (click)="updateSleepCondition()">Update</button> ||
+        <button mat-raised-button color="primary" [disabled]="sleepConditionsForm.invalid" (click)="addSleepCondition()">Add</button> ||
+        <button mat-raised-button color="primary" [disabled]="sleepConditionsForm.invalid" (click)="deleteSleepCondition()">Delete</button>
+    </form>
+</div>

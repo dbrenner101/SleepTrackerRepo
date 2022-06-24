@@ -1,0 +1,23 @@
+<div>
+    <form [formGroup]="usersForm">
+        <mat-label>
+            Add User
+        </mat-label>
+        <br/>
+        <mat-form-field hintLabel="Min 4 characters" appearance="fill">
+            <input formControlName="username" required matNativeControl minlength="4" placeholder="Username">
+            <mat-hint align="end">{{username.value?.length || 0}}/4</mat-hint>
+            <mat-error *ngIf="username.invalid">Please enter a valid username</mat-error>
+        </mat-form-field>
+        <br/>
+        <mat-form-field hintLabel="Min 4 characters" aappearance="fill">
+            <input type="password" formControlName="password" required minlength="4" matNativeControl placeholder="Password">
+            <mat-hint align="end">{{password.value?.length || 0}}/4</mat-hint>
+            <mat-error *ngIf="password.invalid">Please enter a valid password</mat-error>
+        </mat-form-field>
+        <br/>
+        <button mat-raised-button color="primary" [disabled]="usersForm.invalid" (click)="addUser()">Add</button>
+    </form>
+    <p></p>
+    <span *ngIf="newUserErrorMessage.length > 0">{{newUserErrorMessage}}</span>
+</div>
