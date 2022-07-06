@@ -27,30 +27,30 @@ public class SecurityConfiguration {
 	AuthenticationService authenticationService;
 	
 	@Bean
-	public UserDetailsService userDetailsService() {
+	UserDetailsService userDetailsService() {
 		return this.authenticationService;
 	}
+
+    @Bean
+    WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/newUser/**");
+    }
+
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/newUser/**").permitAll()
+                        .antMatchers("/index.html").permitAll()
+                        .antMatchers("/api/**").hasRole("USER"))
+                .httpBasic(withDefaults())
+                .formLogin(withDefaults())
+                .cors().and().csrf().disable();
+        return http.build();
+    }
 	
 	@Bean
-	public WebSecurityCustomizer webSecurityCustomizer() {
-	  return (web) -> web.ignoring().antMatchers("/newUser/**");
-	}
-	
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests(authorize -> authorize
-					.antMatchers("/newUser/**").permitAll()
-					.antMatchers("/index.html").permitAll()
-					.antMatchers("/api/**").hasRole("USER"))
-			.httpBasic(withDefaults())
-			.formLogin(withDefaults())
-			.cors().and().csrf().disable();
-		return http.build();
-	}
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() { 
+	PasswordEncoder passwordEncoder() { 
 	    return new BCryptPasswordEncoder(); 
 	}
 
